@@ -1,0 +1,461 @@
+ (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
+diff --git a/index.html b/index.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..5fc1bb5f6dd322adef82cf411193463d05e08f12
+--- /dev/null
++++ b/index.html
+@@ -0,0 +1,451 @@
++<!doctype html>
++<html lang="ja">
++  <head>
++    <meta charset="UTF-8" />
++    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
++    <title>Sarise | MEO・口コミ導線支援</title>
++    <meta
++      name="description"
++      content="Sariseは中小店舗向けにMEO対策と口コミ導線の設計を提供。QRコード・1分アンケート・AI文案自動生成で投稿ハードルを下げます。"
++    />
++    <style>
++      :root {
++        --bg: #f7f9fc;
++        --surface: #ffffff;
++        --text: #1a2433;
++        --muted: #596579;
++        --line: #d8e0eb;
++        --primary: #244a7c;
++        --primary-soft: #eef4fb;
++      }
++
++      * {
++        box-sizing: border-box;
++      }
++
++      body {
++        margin: 0;
++        background: var(--bg);
++        color: var(--text);
++        font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
++        line-height: 1.75;
++      }
++
++      a {
++        color: inherit;
++        text-decoration: none;
++      }
++
++      .container {
++        width: min(1080px, 92vw);
++        margin: 0 auto;
++      }
++
++      header {
++        position: sticky;
++        top: 0;
++        z-index: 30;
++        backdrop-filter: blur(8px);
++        background: rgba(247, 249, 252, 0.92);
++        border-bottom: 1px solid var(--line);
++      }
++
++      .head {
++        display: flex;
++        justify-content: space-between;
++        align-items: center;
++        padding: 14px 0;
++        gap: 12px;
++      }
++
++      .logo {
++        font-size: 1.2rem;
++        font-weight: 700;
++        letter-spacing: 0.02em;
++      }
++
++      .header-actions {
++        display: flex;
++        align-items: center;
++        gap: 12px;
++      }
++
++      .tel {
++        color: var(--muted);
++        font-size: 0.95rem;
++        font-weight: 500;
++      }
++
++      .btn {
++        display: inline-block;
++        border-radius: 8px;
++        border: 1px solid var(--primary);
++        background: var(--primary);
++        color: #fff;
++        padding: 11px 18px;
++        font-weight: 700;
++      }
++
++      .btn.ghost {
++        background: transparent;
++        color: var(--primary);
++      }
++
++      section {
++        padding: 72px 0;
++      }
++
++      .hero {
++        padding-top: 92px;
++      }
++
++      .hero-grid {
++        display: grid;
++        grid-template-columns: 1.1fr 0.9fr;
++        gap: 18px;
++        align-items: stretch;
++      }
++
++      .hero-card {
++        background: var(--surface);
++        border: 1px solid var(--line);
++        border-radius: 14px;
++        padding: 32px;
++      }
++
++      .eyebrow {
++        color: var(--primary);
++        font-size: 0.82rem;
++        font-weight: 700;
++        letter-spacing: 0.08em;
++        text-transform: uppercase;
++      }
++
++      h1 {
++        margin: 10px 0 14px;
++        line-height: 1.28;
++        font-size: clamp(2rem, 4.8vw, 3.25rem);
++      }
++
++      h2 {
++        margin-top: 0;
++        margin-bottom: 20px;
++        font-size: clamp(1.45rem, 2.4vw, 2rem);
++      }
++
++      p,
++      li {
++        color: var(--muted);
++      }
++
++      .cta {
++        display: flex;
++        gap: 10px;
++        flex-wrap: wrap;
++        margin-top: 16px;
++      }
++
++      .points {
++        list-style: none;
++        padding: 0;
++        margin: 0;
++      }
++
++      .points li {
++        background: var(--primary-soft);
++        border: 1px solid #d7e5f8;
++        border-radius: 10px;
++        padding: 12px;
++        margin-bottom: 10px;
++        color: #2b415f;
++      }
++
++      .cards-3 {
++        display: grid;
++        grid-template-columns: repeat(3, minmax(0, 1fr));
++        gap: 16px;
++      }
++
++      .card {
++        background: var(--surface);
++        border: 1px solid var(--line);
++        border-radius: 12px;
++        padding: 20px;
++      }
++
++      .card-icon {
++        width: 34px;
++        height: 34px;
++        border-radius: 99px;
++        display: inline-flex;
++        align-items: center;
++        justify-content: center;
++        background: var(--primary-soft);
++        color: var(--primary);
++        font-weight: 700;
++        margin-bottom: 8px;
++      }
++
++      .flow {
++        display: grid;
++        grid-template-columns: repeat(3, minmax(0, 1fr));
++        gap: 16px;
++      }
++
++      .step {
++        background: var(--surface);
++        border: 1px solid var(--line);
++        border-radius: 12px;
++        padding: 18px;
++      }
++
++      .step-num {
++        display: inline-block;
++        width: 30px;
++        height: 30px;
++        border-radius: 99px;
++        text-align: center;
++        line-height: 30px;
++        font-weight: 700;
++        background: var(--primary);
++        color: #fff;
++        margin-bottom: 8px;
++      }
++
++      .note {
++        margin-top: 12px;
++        background: #f5f9ff;
++        border: 1px solid #d8e7fb;
++        padding: 12px 14px;
++        border-radius: 10px;
++        color: #3e5878;
++        font-size: 0.94rem;
++      }
++
++      .contact {
++        display: grid;
++        grid-template-columns: 1.1fr 0.9fr;
++        gap: 16px;
++      }
++
++      form {
++        display: grid;
++        gap: 10px;
++      }
++
++      label {
++        display: grid;
++        gap: 6px;
++        font-size: 0.95rem;
++        color: var(--text);
++        font-weight: 500;
++      }
++
++      input,
++      textarea {
++        width: 100%;
++        border: 1px solid var(--line);
++        border-radius: 8px;
++        padding: 10px 12px;
++        font-size: 1rem;
++        background: #fff;
++        color: var(--text);
++      }
++
++      textarea {
++        min-height: 130px;
++        resize: vertical;
++      }
++
++      .telbox {
++        background: var(--surface);
++        border: 1px solid var(--line);
++        border-radius: 12px;
++        padding: 20px;
++      }
++
++      .number {
++        font-size: 1.6rem;
++        font-weight: 700;
++        color: var(--primary);
++      }
++
++      .fixed {
++        position: fixed;
++        right: 16px;
++        bottom: 16px;
++        z-index: 40;
++      }
++
++      footer {
++        margin-top: 24px;
++        padding: 22px 0 32px;
++        border-top: 1px solid var(--line);
++        background: #f2f6fb;
++      }
++
++      .mini-company {
++        display: flex;
++        flex-wrap: wrap;
++        gap: 8px 16px;
++        color: #44556d;
++        font-size: 0.92rem;
++      }
++
++      @media (max-width: 920px) {
++        .hero-grid,
++        .cards-3,
++        .flow,
++        .contact {
++          grid-template-columns: 1fr;
++        }
++
++        .tel {
++          display: none;
++        }
++      }
++    </style>
++  </head>
++  <body>
++    <header>
++      <div class="container head">
++        <a href="#top" class="logo">Sarise</a>
++        <div class="header-actions">
++          <a href="tel:07091292181" class="tel">TEL: 070-9129-2181</a>
++          <a href="#contact" class="btn ghost">お問い合わせ</a>
++        </div>
++      </div>
++    </header>
++
++    <main id="top">
++      <section class="hero">
++        <div class="container hero-grid">
++          <div class="hero-card">
++            <p class="eyebrow">Google Maps / MEO Support</p>
++            <h1>
++              店舗集客を、<br />
++              信頼できる導線で。
++            </h1>
++            <p>
++              Sariseは中小店舗向けに、MEO対策と口コミ導線を一体で設計。
++              Googleマップで見つかる状態づくりから、口コミ投稿しやすい仕組み化まで支援します。
++            </p>
++            <div class="cta">
++              <a href="#contact" class="btn">無料相談を申し込む</a>
++              <a href="tel:07091292181" class="btn ghost">電話で相談する</a>
++            </div>
++          </div>
++          <aside class="hero-card">
++            <h2>こんなお悩みに</h2>
++            <ul class="points">
++              <li>Googleマップに出ているが、来店につながりにくい</li>
++              <li>口コミを増やしたいが、お客様にお願いしづらい</li>
++              <li>運用したいが、店舗業務で手が回らない</li>
++            </ul>
++          </aside>
++        </div>
++      </section>
++
++      <section>
++        <div class="container">
++          <h2>MEO対策 + 口コミ導線をまとめて支援</h2>
++          <div class="cards-3">
++            <article class="card">
++              <span class="card-icon">①</span>
++              <h3>MEO初期整備</h3>
++              <ul>
++                <li>Googleビジネスプロフィールの情報最適化</li>
++                <li>写真・説明文・カテゴリの整理</li>
++                <li>検索時の見え方を整える基盤づくり</li>
++              </ul>
++            </article>
++            <article class="card">
++              <span class="card-icon">②</span>
++              <h3>MEO運用改善</h3>
++              <ul>
++                <li>投稿方針の設計と更新ルール化</li>
++                <li>改善ポイントの可視化</li>
++                <li>継続しやすい運用体制の提案</li>
++              </ul>
++            </article>
++            <article class="card">
++              <span class="card-icon">③</span>
++              <h3>口コミアンケートツール導入</h3>
++              <ul>
++                <li>店内にQRコードを設置</li>
++                <li>来店客が1分アンケートに回答</li>
++                <li>AIが口コミ文案を自動生成し、投稿ハードルを下げる</li>
++              </ul>
++            </article>
++          </div>
++        </div>
++      </section>
++
++      <section>
++        <div class="container">
++          <h2>口コミ導線の流れ（イラスト的にわかりやすく）</h2>
++          <div class="flow">
++            <article class="step">
++              <span class="step-num">1</span>
++              <h3>QRコード設置</h3>
++              <p>レジ横・テーブル・会計導線など、読み取りやすい場所に配置します。</p>
++            </article>
++            <article class="step">
++              <span class="step-num">2</span>
++              <h3>1分アンケート回答</h3>
++              <p>短い質問に答えるだけで、来店体験をスムーズに入力できます。</p>
++            </article>
++            <article class="step">
++              <span class="step-num">3</span>
++              <h3>AIで文案自動生成</h3>
++              <p>回答内容をもとにAIが口コミ文案を自動生成。お客様が確認・編集して投稿できます。</p>
++            </article>
++          </div>
++          <p class="note">※ 投稿はお客様ご本人の意思で行われ、最終内容はお客様側で確認・編集が可能です。</p>
++        </div>
++      </section>
++
++      <section id="contact">
++        <div class="container">
++          <h2>お問い合わせ</h2>
++          <p>サービスに関するご相談は、フォームまたはお電話からお気軽にご連絡ください。</p>
++          <div class="contact">
++            <form>
++              <label>
++                お名前
++                <input type="text" name="name" required />
++              </label>
++              <label>
++                メールアドレス
++                <input type="email" name="email" required />
++              </label>
++              <label>
++                お問い合わせ内容
++                <textarea name="message" required></textarea>
++              </label>
++              <button type="submit" class="btn">送信する</button>
++            </form>
++            <aside class="telbox">
++              <h3>お電話でのお問い合わせ</h3>
++              <p class="number"><a href="tel:07091292181">070-9129-2181</a></p>
++              <p>全国対応 / オンライン相談可</p>
++            </aside>
++          </div>
++        </div>
++      </section>
++    </main>
++
++    <a href="#contact" class="btn fixed">無料相談</a>
++
++    <footer>
++      <div class="container">
++        <div class="mini-company">
++          <span>運営：Sarise</span>
++          <span>代表：廣瀬 太雅</span>
++          <span>対応エリア：全国</span>
++          <span>連絡先：フォーム / 070-9129-2181</span>
++        </div>
++      </div>
++    </footer>
++  </body>
++</html>
+ 
+EOF
+)
